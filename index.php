@@ -1,7 +1,18 @@
 <?php 
 
 include "db_connect.php";
-$name = "test";
-SQL_query("INSERT INTO brugere (name) VALUES (':Name')", [":Name" => $name]);
+include "Verify.inc";
+
+$function = $POST["function"];
+
+switch($function)
+{
+    case "card":
+        include("card.inc");
+        break;
+    case "transfer":
+        include("Transfer.inc");
+        break;
+}
 
 ?>
