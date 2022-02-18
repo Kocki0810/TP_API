@@ -15,7 +15,7 @@ function Connect()
 function SQL_query($sql)
 {
     $conn = Connect();
-    return $stmt = $conn->query($sql);
+    $conn->query($sql);
 }
 
 
