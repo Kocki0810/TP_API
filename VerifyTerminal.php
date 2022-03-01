@@ -1,8 +1,6 @@
-<?php 
+<?php
 
-
-include "db_connect.php";
-
+include_once "db_connect.php";
 
 $tid = $POST["tid"];
 $key = $POST["key"];
