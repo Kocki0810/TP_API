@@ -1,5 +1,7 @@
 <?php
-namespace TP_API;
+include_once "db_connect.php";
+include_once "Verify.inc";
+include_once "Logging.php";
 class Transaktion
 {
     public $card_number;

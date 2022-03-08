@@ -1,5 +1,5 @@
 <?php
-namespace TP_API;
+
 class Verify
 {
     function Card_Active($card_number)

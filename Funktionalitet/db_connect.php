@@ -1,5 +1,4 @@
 <?php
-namespace TP_API;
 class Connect
 {
 

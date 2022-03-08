@@ -1,5 +1,7 @@
 <?php
-namespace TP_API;
+
+include_once "Funktionalitet/Transfer.inc";
+include_once "Funktionalitet/db_connect.php";
 
 
 //switch($function)

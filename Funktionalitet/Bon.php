@@ -1,5 +1,7 @@
 <?php
-namespace TP_API;
+include_once "db_connect.php";
+include_once "Verify.inc";
+include_once "Logging.php";
 class Bon
 {
     public $subtotal;
@@ -13,6 +15,12 @@ class Bon
     {
         $db = new Connect();
         $db->SQL_query("INSERT INTO bon (subtotal) values ('$this->subtotal')");
+    }
+    function RetrieveData($card_number)
+    {
+        $db = new Connect();
+        Logging::Log("Data retrieved by $card_number");
+        return $db->SQL_query("SELECT * FROM bon WHERE $card_number")->fetch_assoc();
     }
 }
 
@@ -35,5 +43,11 @@ class Bon_linje
     {
         $db = new Connect();
         $db->SQL_query("INSERT INTO bon_linje (tekst, pris, antal, bonID) VALUES ('$this->tekst', '$this->pris', '$this->antal', '$this->bonid')");
+    }
+
+    function RetrieveLines($bonid)
+    {
+        $db = new Connect();
+        return $db->SQL_query("SELECT * FROM bon_linje WHERE bonID = '$bonid'")->fetch_assoc();
     }
 }
