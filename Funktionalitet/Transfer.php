@@ -42,6 +42,9 @@ class Transaktion
             echo "Not enough money";
             return;
         }
+        $update = new UpdateUser();
+        $update->Update(0, $this->card_number);
+
         $new_amount = $money - $amount;
         $db->SQL_query("UPDATE card SET amount = '$new_amount' WHERE card_number = '$this->card_number'");
         Logging::Log("$amount withdrawn from $this->card_number at $this->terminal_id new amount = $new_amount");
@@ -62,6 +65,8 @@ class Transaktion
         }
         Logging::Log("Inserted $amount into $this->card_number");
         $db->SQL_query("UPDATE card SET amount = amount + '$amount' WHERE card_number = '$this->card_number'");
+        $update = new UpdateUser();
+        $update->Update(0, $this->card_number);
         echo "Success";
     }
 }

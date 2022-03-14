@@ -28,6 +28,8 @@ class Card
         $values = "'$this->card_number', '$this->amount', '$date', '$this->card_holder', '$this->pin', '0'";
         $sql = "INSERT INTO card  (card_number, amount, created_at, card_holder, pin, status) VALUES ($values)";
         $db->SQL_query($sql);
+        $update = new UpdateUser();
+        $update->Update(0, $this->card_number);
     }
 
     function SetCardStatus($status)
@@ -36,6 +38,8 @@ class Card
         if($status == "0" || $status == "1")
         {
             $db->SQL_query("UPDATE card SET status = '$status' WHERE card_number = '$this->card_number'");
+            $update = new UpdateUser();
+            $update->Update(0, $this->card_number);
             Logging::Log("Card $this->card_number updated status to $status", "SECURITY");
         }
     }
@@ -44,11 +48,9 @@ class Card
     {
         $db = new Connect();
         $db->SQL_query("DELETE FROM card WHERE  card.card_number = $this->card_number");
+        $update = new UpdateUser();
+        $update->Update(0, $this->card_number);
         Logging::Log("Card $this->card_number deleted", "SECURITY");
     }
-
-
 }
-
-
 ?>

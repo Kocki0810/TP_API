@@ -3,6 +3,7 @@
 include_once "Funktionalitet/Transfer.inc";
 include_once "Funktionalitet/db_connect.php";
 
+$function = $_POST["funktion"];
 
 //switch($function)
 //{
