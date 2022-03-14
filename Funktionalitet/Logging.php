@@ -1,7 +1,5 @@
 <?php
 
-
-
 class Logging
 {
     static function Log($message, $severity = "INFO")

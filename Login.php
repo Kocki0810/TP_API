@@ -1,20 +1,20 @@
 <?php
 
-include_once "Funktionalitet/Transfer.inc";
+include_once "Funktionalitet/Verify.php";
 include_once "Funktionalitet/db_connect.php";
 
-$function = $_POST["funktion"];
+$username = $_POST["username"];
+$password = $_POST["password"];
 
-//switch($function)
-//{
-//    case "card":
-//        include("card.inc");
-//        break;
-//    case "transfer":
-//        include("Transfer.inc");
-//        break;
-//}
-$test = new Transaktion("1234", "1234", "1234", "1234");
-$test->Insert(1);
-unset($test);
+$login = new Verify();
+if(!$login->LogIn($username, $password))
+{
+    echo "Wrong username or password";
+    exit;
+}
+else
+{
+    echo "OK";
+    exit;
+}
 ?>

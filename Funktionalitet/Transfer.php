@@ -1,6 +1,6 @@
 <?php
 include_once "db_connect.php";
-include_once "Verify.inc";
+include_once "Verify.php";
 include_once "Logging.php";
 class Transaktion
 {
