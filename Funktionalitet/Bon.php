@@ -5,16 +5,18 @@ include_once "Logging.php";
 class Bon
 {
     public $subtotal;
-
-    function __construct($subtotal)
+    public $card_number;
+    function __construct($subtotal, $card_number)
     {
         $this->subtotal = $subtotal;
+        $this->card_number = $card_number;
     }
 
     function AddToDB()
     {
         $db = new Connect();
-        $db->SQL_query("INSERT INTO bon (subtotal) values ('$this->subtotal')");
+        $db->SQL_query("INSERT INTO bon (subtotal, card_number) values ('$this->subtotal', '$this->card_number')");
+        return $db->last_id();
     }
     function RetrieveData($card_number)
     {
@@ -29,20 +31,18 @@ class Bon_linje
     public $tekst;
     public $antal;
     public $pris;
-    public $bonid;
 
-    function __construct($tekst, $antal, $pris, $bonid)
+    function __construct($tekst, $antal, $pris)
     {
         $this->tekst = $tekst;
         $this->antal = $antal;
         $this->pris = $pris;
-        $this->bonid = $bonid;
     }
 
-    function AddtoDB()
+    function AddtoDB($bonid)
     {
         $db = new Connect();
-        $db->SQL_query("INSERT INTO bon_linje (tekst, pris, antal, bonID) VALUES ('$this->tekst', '$this->pris', '$this->antal', '$this->bonid')");
+        $db->SQL_query("INSERT INTO bon_linje (tekst, pris, antal, bonID) VALUES ('$this->tekst', '$this->pris', '$this->antal', '$bonid')");
     }
 
     function RetrieveLines($bonid)

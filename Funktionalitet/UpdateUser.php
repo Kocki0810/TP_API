@@ -16,16 +16,16 @@ class UpdateUser
         {
             $userid = $id;
         }
-        $db->SQL_query("UPDATE update_data SET update = '1' WHERE brugerID = '$userid'");
+        $db->SQL_query("UPDATE update_data SET update_user = '1' WHERE brugerID = '$userid'");
     }
 
     function CheckStatus($id)
     {
         $db = new Connect();
-        $status = $db->SQL_query("SELECT * FROM update_data WHERE brugerID = '$id'")->fetch_assoc()["update"];
+        $status = $db->SQL_query("SELECT * FROM update_data WHERE brugerID = '$id'")->fetch_assoc()["update_user"];
         if($status == 1)
         {
-            $db->SQL_query("UPDATE update_data SET update = 1 WHERE brugerID = '$id'");
+            $db->SQL_query("UPDATE update_data SET update_user = 1 WHERE brugerID = '$id'");
         }
     }
 }

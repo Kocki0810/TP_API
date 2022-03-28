@@ -2,17 +2,16 @@
 include_once "db_connect.php";
 include_once "Verify.php";
 include_once "Logging.php";
+include_once "UpdateUser.php";
 class Transaktion
 {
     public $card_number;
     public $terminal_id;
-    public $bon_id;
     public $pin;
-    function __construct($card_id, $terminal_id, $bon_id, $pin)
+    function __construct($card_id, $terminal_id, $pin)
     {
         $this->card_number = $card_id;
         $this->terminal_id = $terminal_id;
-        $this->bon_id = $bon_id;
         $this->pin = $pin;
     }
 

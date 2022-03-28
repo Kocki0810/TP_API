@@ -1,8 +1,7 @@
 <?php
 class Connect
 {
-
-
+    public $last_insert_id;
     function conn()
     {
         $servername = "sql.itcn.dk";
@@ -14,10 +13,16 @@ class Connect
 
     function SQL_query($sql)
     {
-        return $this->conn()->query($sql);
-
+        $conn = $this->conn();
+        $result = $conn->query($sql);
+        $this->last_insert_id = $conn->insert_id;
+        return $result;
     }
 
+    function last_id()
+    {
+        return $this->last_insert_id;
+    }
 }
 
 ?>
