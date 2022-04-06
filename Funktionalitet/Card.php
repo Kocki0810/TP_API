@@ -53,4 +53,24 @@ class Card
         Logging::Log("Card $this->card_number deleted", "SECURITY");
     }
 }
+
+class GetCard
+{
+    public $id;
+
+    function __construct($card_holder)
+    {
+        $this->id = $card_holder;
+    }
+
+    function GetCards()
+    {
+        $db = new Connect();
+        $result = $db->SQL_query("SELECT * FROM card WHERE card_holder = '$this->id'");
+        while ($row = $result->fetch_assoc()) {
+            $array[] = $row;
+        }
+        return $array;
+    }
+}
 ?>

@@ -18,12 +18,38 @@ class Bon
         $db->SQL_query("INSERT INTO bon (subtotal, card_number) values ('$this->subtotal', '$this->card_number')");
         return $db->last_id();
     }
-    function RetrieveData($card_number)
+    
+}
+
+class GetBon
+{
+    public $card_number;
+    
+
+    function __construct($card_number)
+    {
+        $this->card_number = $card_number;
+    }
+
+    function RetrieveData()
     {
         $db = new Connect();
-        Logging::Log("Data retrieved by $card_number");
-        return $db->SQL_query("SELECT * FROM bon WHERE $card_number")->fetch_assoc();
+        Logging::Log("Data retrieved by $this->card_number");
+        $array = array();
+
+        $result = $db->SQL_query("SELECT bl.tekst, b.subtotal, b.id as bonid, bl.id as lid, bl.antal, bl.pris FROM bon_linje bl JOIN bon b ON bl.bonID = b.id WHERE b.card_number = '$this->card_number';");
+        while ($row = $result->fetch_assoc()) {
+            $temp = array();
+
+            $temp["tekst"] = $row["tekst"];
+            $temp["antal"] = $row["antal"];
+            $temp["pris"] = $row["pris"];
+
+            $array[$row["bonid"]][$row["lid"]] = $temp;
+        }
+        return $array;
     }
+
 }
 
 class Bon_linje
@@ -44,10 +70,5 @@ class Bon_linje
         $db = new Connect();
         $db->SQL_query("INSERT INTO bon_linje (tekst, pris, antal, bonID) VALUES ('$this->tekst', '$this->pris', '$this->antal', '$bonid')");
     }
-
-    function RetrieveLines($bonid)
-    {
-        $db = new Connect();
-        return $db->SQL_query("SELECT * FROM bon_linje WHERE bonID = '$bonid'")->fetch_assoc();
-    }
 }
+
